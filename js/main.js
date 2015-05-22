@@ -38,9 +38,10 @@
 
                         this.classList.toggle('hover');
                         var thisClass = this;
-                        // get back to front after 20 seconds
+
+                        // get back to front automatically after 20 seconds
                         setTimeout(function() {
-                            thisClass.classList.remove('hover')
+                            thisClass.classList.remove('hover');
                         }, 20000);
                     }
                 } else {
@@ -49,6 +50,9 @@
                 $panel.off('mouseup mousemove', handler);
               });
             });
+
+            //Kinetic
+            $('.back').kinetic();
      
             //Panel heading
             var $panelHeading = $(document.createElement("div")).addClass("panel-heading").html("<h2 class='panel-title'>" + data["name"] + "</h2>").appendTo($panel);
@@ -65,7 +69,8 @@
             //Back
             if(!isMobile){
                 var $back = $(document.createElement("div")).addClass("panel-body back").appendTo($panel);
-                var $descQR = $(document.createElement("div")).addClass("descQR").appendTo($back);
+                var $descQR = $(document.createElement("div")).attr('id','descQR').appendTo($back);
+
                 // put the qrcode of the event's link
                 var qrcodesrc = "http://chart.apis.google.com/chart?cht=qr&chs=200x200&chl=https://www.facebook.com/events/"+ value;
                 $(document.createElement("img")).attr('id','QRCode').attr('src',qrcodesrc).appendTo($descQR);
@@ -79,26 +84,42 @@
                 }else{
                     $descQR.append("<p> Il n'y a pas de description pour cet événement.</p>");
                 }
-
             }
 
             //Panel footer
-            var timestamp = Date.parse(key);
-            var date = new Date(timestamp);
-            var months = ['Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Decembre'];
-            var year = date.getFullYear();
-            var month = months[date.getMonth()];
-            var day = date.getDate();
-            var days = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
-            var weekDay = days[date.getDay()];
-            var hour = "0" + date.getHours();
-            var min = "0" + date.getMinutes();
-            var time = weekDay + ' ' + day + ' ' + month + ' ' + year + ' à ' + hour.substr(hour.length-2) + 'h' + min.substr(min.length-2);
+            // If the date has no time : MM-DD-YYYY
+            if(key.length == 10){
+                var timestamp = Date.parse(key);
+                var date = new Date(timestamp);
+                var months = ['Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Decembre'];
+                var year = date.getFullYear();
+                var month = months[date.getMonth()];
+                var day = date.getDate();
+                var days = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+                var weekDay = days[date.getDay()];
+                var hour = "0" + date.getHours();
+                var min = "0" + date.getMinutes();
+                var time = weekDay + ' ' + day + ' ' + month + ' ' + year;
+            }
+            else{ // If the date is in ISO8601 format
+                var date = dateFromISO8601(key);
+                var timestamp = Date.parse(date);
+                var months = ['Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Decembre'];
+                var year = date.getFullYear();
+                var month = months[date.getMonth()];
+                var day = date.getDate();
+                var days = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+                var weekDay = days[date.getDay()];
+                var hour = "0" + date.getHours();
+                var min = "0" + date.getMinutes();
+                var time = weekDay + ' ' + day + ' ' + month + ' ' + year + ' à ' + hour.substr(hour.length-2) + 'h' + min.substr(min.length-2);
+            }
             if("place" in data ){
                 $panel.append("<div class='panel-footer'><p class='text-muted date'> <b>Où : </b>" + data["place"]["name"] + " <span><b>Quand : </b>" + time + "</span></p></div>");
             }else{
                 $panel.append("<div class='panel-footer'><p class='text-muted date'> <b>Où : </b><span><b>Quand : </b>" + time + "</span></p></div>");
             }
+            
             // Hiden timestamp for isotope sorting
             $item.append("<div class='timestamp'>"+ timestamp +"</div>");
                 
@@ -123,25 +144,24 @@
 
             // when the window is resized, to ajust the back's size
             $(window).on('resize', function(){
-                // get the size of the .front div and put it to the .back and .descQR divs
+                // get the size of the .front div and put it to the .back div
                 var hei = $front.height();
                 var wid = $front.width();
                 $back.css('height', hei+20);
                 $back.css('width', wid+25);
                 if ($(window).width() < 500) {
                     jQuery('.info').html("?").css('font-size','300%');
+                    jQuery('.slogan').css('display','none');
+                    jQuery('#refreshImage').css('display','none');
+                    jQuery('#container').css('top', 90);
                 }
                 else if($(window).width() >= 500){
                     jQuery('.info').html("Comment publier un événement ?").css('font-size','20px');
+                    jQuery('.slogan').css('display','block');
+                    jQuery('#refreshImage').css('display','inline');
+                    jQuery('#container').css('top',$('.jumbotron').height()+15);
                 }
             });
-
-            if (isMobile) {
-                $item.on('click', function(){
-                    window.open("https://www.facebook.com/events/"+ value);
-                    return false;
-                });
-            }
         });
     }
     
@@ -194,7 +214,6 @@
                 $('.loadmore').show();
                 $('.loadmore').fadeOut(3000);
             }
-
          });
     });
 
@@ -209,7 +228,7 @@
 
     // Plugin Kinetic : for dragscroll with cursor
     if (!isMobile) {
-        $(window).kinetic('start',{velocityY: -10});
+        $('body').kinetic();
     }
 
     // Function to know if the user is on a mobiles
@@ -234,9 +253,12 @@
         $('#facebookPage').css('display','none');
     }
 
-    // If the user's window is small the info text bedome a '?'
+    // If the user's window is small (Smartphone...)
     if ($(window).width() < 500) {
         jQuery('.info').html("?").css('font-size','300%');
+        jQuery('.slogan').css('display','none');
+        jQuery('#refreshImage').css('display','none');
+        jQuery('#container').css('top', 90);
     }
 
     // Close .contenu when click outside
@@ -269,4 +291,12 @@
         case 4:
            $('.jumbotron').css('background-color', '#e67e22'); //Orange
            break;
+    }
+
+    // function to convert date in ISO8601 format to a date for all browsers 
+    function dateFromISO8601(iso8601Date) {
+       var parts = iso8601Date.match(/\d+/g);
+       var isoTime = Date.UTC(parts[0], parts[1] - 1, parts[2], parts[3], parts[4], parts[5]);
+       var isoDate = new Date(isoTime);
+       return isoDate;
     }
