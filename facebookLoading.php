@@ -10,7 +10,6 @@ $page_access_token = "CAAFN8T1AlV4BAJyocN14itEZCpja1L1FcNhqbeYWlkdxbqwQaB16BYxkY
 // Get the posts on the page (= tagged)
 $fields="link,to"; 
 $json_link = "https://graph.facebook.com/{$fb_page_id}/tagged/?fields={$fields}&access_token={$access_token}&limit=50";
-var_dump($json_link);
 $json = file_get_contents($json_link);
 $obj = json_decode($json, true, 512, JSON_BIGINT_AS_STRING);
 
