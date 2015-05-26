@@ -97,7 +97,7 @@
                 var day = date.getDate();
                 var days = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
                 var weekDay = days[date.getDay()];
-                var hour = "0" + date.getHours();
+                var hour = "0" + (date.getHours()-2);
                 var min = "0" + date.getMinutes();
                 var time = weekDay + ' ' + day + ' ' + month + ' ' + year;
             }
@@ -110,7 +110,7 @@
                 var day = date.getDate();
                 var days = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
                 var weekDay = days[date.getDay()];
-                var hour = "0" + date.getHours();
+                var hour = "0" + (date.getHours()-2);
                 var min = "0" + date.getMinutes();
                 var time = weekDay + ' ' + day + ' ' + month + ' ' + year + ' à ' + hour.substr(hour.length-2) + 'h' + min.substr(min.length-2);
             }
