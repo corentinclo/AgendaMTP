@@ -1,3 +1,7 @@
+/*
+* @author Corentin CLOAREC & Jules CORDONNIER
+*/
+
 <?php include 'facebookLoading.php'; ?>
 
 <!DOCTYPE html>
