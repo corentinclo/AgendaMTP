@@ -1,3 +1,7 @@
+/*
+* @author Corentin CLOAREC & Jules CORDONNIER
+*/
+
 <?php
 // The id of the page L'Agenda
 $fb_page_id = "1436089993356040";
