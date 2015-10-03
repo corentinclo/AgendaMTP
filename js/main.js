@@ -1,3 +1,7 @@
+/*
+* @author Corentin CLOAREC & Jules CORDONNIER
+*/
+
      /***********************/
     /*** CREATE THE HTML ***/
    /***********************/
