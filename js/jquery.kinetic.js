@@ -55,7 +55,7 @@
 
   Kinetic.DATA_KEY = 'kinetic';
   Kinetic.DEFAULTS = {
-    cursor: 'move',
+    cursor: '',
     decelerate: true,
     triggerHardware: false,
     y: true,
@@ -502,4 +502,3 @@
   };
 
 }(window.jQuery || window.Zepto));
-

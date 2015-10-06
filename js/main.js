@@ -5,26 +5,26 @@
      /***********************/
     /*** CREATE THE HTML ***/
    /***********************/
-    // is the user on a mobile ? 
+    // is the user on a mobile ?
     var isMobile = isMobile();
 
     // adjust container top according to jumbotron height
     $('#container').css('top',$('.jumbotron').height()+15);
     $('.loadmore').css('margin-top',$('.jumbotron').height());
-    
+
     // for each element of the array, key=start date and value=facebook event's id
     function addItems(key,value){
      // get the event's info
         var fields = "name,description,place,cover";
-        var fburl = "https://graph.facebook.com/"+ value +"/?fields="+ fields +"&access_token="+ access_token;   
+        var fburl = "https://graph.facebook.com/"+ value +"/?fields="+ fields +"&access_token="+ access_token;
         $.getJSON(fburl, function(data){
             var $item = $(document.createElement("div")).addClass("item").appendTo("#container");
             var $panel = $(document.createElement("div")).addClass("panel panel-default").appendTo($item);
-            
+
             // when a user click on a panel
             $panel.on('mousedown', function (evt) {
               $panel.on('mouseup mousemove', function handler(evt) {
-                if (evt.type === 'mouseup') {
+                if (evt.type === 'mouseup' || evt.type === 'touchstart') {
                     // click event
                     if (isMobile) {
                         window.open("https://www.facebook.com/events/"+ value);
@@ -57,7 +57,7 @@
 
             //Kinetic
             $('.back').kinetic();
-     
+
             //Panel heading
             var $panelHeading = $(document.createElement("div")).addClass("panel-heading").html("<h2 class='panel-title'>" + data["name"] + "</h2>").appendTo($panel);
 
@@ -123,10 +123,10 @@
             }else{
                 $panel.append("<div class='panel-footer'><p class='text-muted date'> <b>Où : </b><span><b>Quand : </b>" + time + "</span></p></div>");
             }
-            
+
             // Hiden timestamp for isotope sorting
             $item.append("<div class='timestamp'>"+ timestamp +"</div>");
-                
+
              /*******************/
             /***** PLUGINS *****/
            /*******************/
@@ -168,7 +168,7 @@
             });
         });
     }
-    
+
     // function to get a number of events
     function getXEvents(x){
         var XEvents = {};
@@ -207,7 +207,7 @@
                 // Add X events
                 XEvents = getXEvents(6);
                 $.each(XEvents, addItems);
-                
+
                 // We finished loading events
                 setTimeout(function() {
                     load = false;
@@ -230,9 +230,13 @@
         location.reload();
     });
 
+    $('.lien').click(function(){
+        window.open('https://www.facebook.com/agendamontpellier');
+    });
+
     // Plugin Kinetic : for dragscroll with cursor
     if (!isMobile) {
-        $('body').kinetic();
+      //  $('body').kinetic();
     }
 
     // Function to know if the user is on a mobiles
@@ -241,7 +245,7 @@
     }
 
     // Toggle the 'help' when click on the info div
-    $(".info").click(function() 
+    $(".info").click(function()
     {
         $(".contenu").slideToggle();
     });
@@ -252,7 +256,7 @@
     // If the user is on a mobile we hide the QRCode and we make a link on the text
     if (isMobile) {
         $('.lien').click(function(){
-            window.open("https://www.facebook.com/agendamontpellier");
+            window.open("https://www.facebook.com/agendamontpellier/");
         })
         $('#facebookPage').css('display','none');
     }
@@ -274,7 +278,7 @@
         if ((!contenu.is(e.target)) // if the target of the click isn't the contenu...
             && (!info.is(e.target)) // ... nor info itself ...
             && (contenu.is(":visible"))) // ... and the contenu is visible
-        {   
+        {
             contenu.slideToggle();
         }
     });
@@ -285,19 +289,23 @@
     switch(random){
         case 1:
             $('.jumbotron').css('background-color', '#0D9AD2'); //Blue
+            document.getElementById('QRCodeFB').innerHTML = document.getElementById('QRCodeFB').innerHTML + "<img id='facebookPage' src='images/QR_Blue.png' />";
             break;
         case 2:
             $('.jumbotron').css('background-color', '#9DBD1A'); //Green
+            document.getElementById('QRCodeFB').innerHTML = document.getElementById('QRCodeFB').innerHTML + "<img id='facebookPage' src='images/QR_Green.png' />";
             break;
         case 3:
             $('.jumbotron').css('background-color', '#9b59b6'); //Purple
+            document.getElementById('QRCodeFB').innerHTML = document.getElementById('QRCodeFB').innerHTML + "<img id='facebookPage' src='images/QR_Purple.png' />";
             break;
         case 4:
            $('.jumbotron').css('background-color', '#e67e22'); //Orange
+           document.getElementById('QRCodeFB').innerHTML = document.getElementById('QRCodeFB').innerHTML + "<img id='facebookPage' src='images/QR_Orange.png' />";
            break;
     }
 
-    // function to convert date in ISO8601 format to a date for all browsers 
+    // function to convert date in ISO8601 format to a date for all browsers
     function dateFromISO8601(iso8601Date) {
        var parts = iso8601Date.match(/\d+/g);
        var isoTime = Date.UTC(parts[0], parts[1] - 1, parts[2], parts[3], parts[4], parts[5]);

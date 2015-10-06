@@ -1,25 +1,25 @@
-/*
+<?php /*
 * @author Corentin CLOAREC & Jules CORDONNIER
 */
 
-<?php include 'facebookLoading.php'; ?>
+include 'facebookLoading.php'; ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
- 
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
- 
+
     <title>L'Agenda Montpellier</title>
- 
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link href="css/style.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.0/isotope.pkgd.min.js"></script>
-    <script src="js/jquery.fittext.js"></script>    
+    <script src="js/jquery.fittext.js"></script>
     <script src="js/imagesloaded.pkgd.min.js"></script>
     <script src="js/jquery.kinetic.js"></script>
 
@@ -49,18 +49,18 @@
                 Comment publier un événement ?
             </div>
             <div class="contenu">
-                <p><b>Cest simple...</b></p>
+                <p><b>C'est simple...</b></p>
                 <ul>
-                    <li>Copiez le lien dun évènement Facebook <b>public</b>.</li>
-                    <li>Publiez le lien sur la page Facebook de lAgenda.</li>                
+                    <li>Copiez le lien d'un événement Facebook <b>public</b></li>
+                    <li>Publiez le lien sur la page Facebook de l'Agenda</li>
                 </ul>
                 <p class="lien"><b>facebook.com/agendamontpellier</b></p>
-                <img src='http://chart.apis.google.com/chart?cht=qr&amp;chs=200x200&amp;chl=https://www.facebook.com/agendamontpellier' id='facebookPage'>
+                <div id="QRCodeFB"></div>
                 <p class="refresh">Rechargez la page !<p>
             </div>
         <h1>L'Agenda</h1>
         <img src="images/refresh.png" id="refreshImage">
-        <p class="slogan">Trouvez et partagez des évènements à Montpellier !</p>
+        <p class="slogan">Trouvez et partagez des événements à Montpellier !</p>
     </div>
 
 <div id="container"></div>
@@ -73,7 +73,7 @@
     var access_token = <?php echo json_encode($access_token); ?>;
 </script>
 
-<script src="js/main.js"></script> 
+<script src="js/main.js"></script>
 
 </body>
 </html>
