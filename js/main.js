@@ -122,7 +122,7 @@
                 var weekDay = days[date.getDay()];
                 var hour = "0" + (date.getHours()-1);
                 var min = "0" + date.getMinutes();
-                var time = weekDay + ' ' + day + ' ' + month + ' ' + year + ' à ' + hour.substr(hour.length-1) + 'h' + min.substr(min.length-2);
+                var time = weekDay + ' ' + day + ' ' + month + ' ' + year + ' à ' + hour.substr(hour.length-2) + 'h' + min.substr(min.length-2);
             }
             if("place" in data ){
                 $panel.append("<div class='panel-footer'><p class='text-muted date'> <b>Où : </b>" + data["place"]["name"] + " <span><b>Quand : </b>" + time + "</span></p></div>");
