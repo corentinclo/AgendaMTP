@@ -23,6 +23,8 @@ $access_token = "367173486810462|Mg9xTK-LHVrNm45ni4O662B9hCw";
     <script src="js/imagesloaded.pkgd.min.js"></script>
     <script src="js/jquery.kinetic.js"></script>
 
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="images/favicon/apple-icon-60x60.png">
@@ -58,9 +60,9 @@ $access_token = "367173486810462|Mg9xTK-LHVrNm45ni4O662B9hCw";
                 <div id="QRCodeFB"></div>
                 <p class="refresh">Puis <a href="facebookLoading">cliquez ici</a><p>
             </div>
-        <h1>L'Agenda étudiant Montpellier</h1>
+        <h1>L'Agenda étudiant</h1>
         <img src="images/refresh.png" id="refreshImage">
-        <p class="slogan">Trouvez et partagez des événements à Montpellier !</p>
+        <p class="slogan">Trouvez et partagez des événements sur Montpellier !</p>
     </div>
 
 <div id="container"></div>

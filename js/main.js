@@ -77,7 +77,13 @@
 
                 // put the qrcode of the event's link
                 var qrcodesrc = "http://chart.apis.google.com/chart?cht=qr&chs=200x200&chl=https://www.facebook.com/events/"+ value;
-                $(document.createElement("img")).attr('id','QRCode').attr('src',qrcodesrc).appendTo($descQR);
+
+                // ************* EDIT *************
+                // DEFAULT $(document.createElement("img")).attr('id','QRCode').attr('src',qrcodesrc).appendTo($descQR);
+                var $linkImgQR = $(document.createElement("a")).attr("href","https://www.facebook.com/events/"+ value).attr('target','_blank').appendTo($descQR);
+                $(document.createElement("img")).attr('id','QRCode').attr('src',qrcodesrc).appendTo($linkImgQR);
+                // ************* FIN EDIT *************
+
                 // put the event's description
                 $descQR.append("<h4>Description <small>(Flashez le QRCode pour plus d'informations)</small></h4>");
                 $(document.createElement("hr")).appendTo($descQR);

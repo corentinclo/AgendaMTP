@@ -22,7 +22,7 @@ body {
     color:#6F6F6F;
 }
 .panel-heading {
-    overflow: hidden; 
+    overflow: hidden;
 }
 .panel-footer {
     overflow: hidden;
@@ -186,4 +186,7 @@ hr {
 }
 .scrollDate{
     text-align: center;
+}
+.slogan {
+  font-family: 'PT Sans', sans-serif;
 }
